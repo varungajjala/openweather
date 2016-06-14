@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section scripts{
+    <script src=" ~/TemperatureApp.js"></script>
+<script src=" ~/TempController.js"></script>
+<script src=" ~/CountriesController.js"></script>
+<script src=" ~/CountryCitiesController.js"></script>
+<script src=" ~/forecast.js"></script>
+<script src=" ~/service.js"></script>
+}
+
+<div class="panel">
+    <div class="col-xs-12 top-bottom-padding">
+        <h3 class="primary-heading">Please select the countries for which you want the average temperatures</h3>
+    </div>
+
+    <div class="col-xs-12 bottom-padding container-fluid" ng-app="tempApp">
+        <div class="col-xs-3 col-xs-offset-1" style="height:auto; max-height:300px; overflow-y: scroll;" ng-controller="CountriesController">
+            <div class="checkbox left-padded" ng-repeat="country in countries">
+                <input type="checkbox" value="{{country}}" name="selected[]" ng-checked="selectedCountries.indexOf(country) > -1" ng-click="toggleSelection(country)" /> <span class="primary-text">{{country}}</span>
+            </div>
+        </div>
+
+        <div ng-controller="TempController">
+            <div class="col-xs-offset-6">
+                <button class="row btn btn-default"  ng-click="calculateTemps()"><span class="primary-text"> Get Avg Temperatures </span></button>
+            </div>
+            <div class="col-xs-offset-5">
+                <div class="panel-body top-xs-padding">
+                    <div class="col-xs-12 label primary-text" ng-repeat="temp in avgtemps">
+                        Country: {{temp.country}} and Average Temperature: {{temp.avgTemp}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
